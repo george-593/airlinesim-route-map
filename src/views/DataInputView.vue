@@ -52,8 +52,8 @@ const imagePreviewRef = ref(null);
               class="hover:underline hover:cursor-pointer text-blue-500"
               @click="imagePreviewRef?.previewImage(example2)"
             >
-              Example 2</button
-            >.)
+              Example 2
+            </button>
           </li>
         </ol>
       </div>
