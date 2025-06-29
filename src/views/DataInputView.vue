@@ -8,6 +8,9 @@ import ImagePreview from "@/components/ImagePreview.vue";
 import example1 from "../assets/images/example1.png";
 import example2 from "../assets/images/example2.png";
 
+// Emits
+const emit = defineEmits(["got-data"]);
+
 // Ref to get previewImage from ImagePreview
 const imagePreviewRef = ref(null);
 
@@ -71,6 +74,7 @@ function parseData() {
   // Save to localstorage
   if (flights.value.length > 0) {
     localStorage.setItem("flightData", JSON.stringify(flights.value));
+    emit("got-data");
   } else {
     // TODO: change this to a pretty error message under input field
     alert("Unable to parse flight data");
