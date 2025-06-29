@@ -20,7 +20,7 @@ defineExpose({ previewImage });
     class="fixed inset-0 bg-black/90 flex items-center justify-center bg-opacity-90"
   >
     <div
-      class="bg-white p-4 pb-2 rounded-xl shadow-xl max-w-[50%] w-full max-h-[80%] flex flex-col items-start overflow-auto"
+      class="bg-white p-4 pb-2 rounded-xl shadow-xl max-w-[65%] w-full max-h-[80%] flex flex-col items-start overflow-auto"
     >
       <img :src="imagePath" alt="Preview" class="w-full h-auto rounded" />
       <button
