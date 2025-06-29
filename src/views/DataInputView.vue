@@ -12,10 +12,69 @@ import example2 from "../assets/images/example2.png";
 const imagePreviewRef = ref(null);
 
 // Option 1 input handling
-const data = ref("");
+const rawData = ref("");
+const flights = ref([]);
 
-function submit() {
-  // Parse data
+function parseData() {
+  //console.log(rawData.value);
+  // Split the input into lines, remove any whitespace and empty lines
+  const lines = rawData.value
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  // Reset flights array
+  flights.value = [];
+  let origin = "";
+  let destination = "";
+
+  for (let line of lines) {
+    // If the line starts with from get the airport that we're going from, same with to
+    if (line.startsWith("From ")) {
+      const match = line.match(/^From (.+) \(([A-Z]{3})\)/);
+      if (match) {
+        origin = match[2];
+      }
+    } else if (line.startsWith("to ")) {
+      const match = line.match(/^to (.+) \(([A-Z]{3})\)/);
+      if (match) {
+        destination = match[2];
+      }
+      // If the line starts with 3 uppercase chars (an airline code) and then some digits (the flight number), split by tab to get the other flight data
+    } else if (/^[A-Z]{3} \d+/.test(line)) {
+      const parts = line.split(/\t+/);
+
+      // Add all data to the flights array if we got parts correctly
+      if (parts.length >= 6) {
+        const [
+          flightNumber,
+          frequency,
+          departure,
+          arrival,
+          aircraft,
+          operator,
+        ] = parts;
+
+        flights.value.push({
+          flightNumber,
+          frequency,
+          departure,
+          arrival,
+          aircraft,
+          operator,
+          origin,
+          destination,
+        });
+      }
+    }
+  }
+  // Save to localstorage
+  if (flights.value.length > 0) {
+    localStorage.setItem("flightData", JSON.stringify(flights.value));
+  } else {
+    // TODO: change this to a pretty error message under input field
+    alert("Unable to parse flight data");
+  }
 }
 </script>
 
@@ -75,13 +134,12 @@ function submit() {
           <li>Paste the flight data below</li>
         </ol>
         <div class="flex my-4">
-          <input
-            type="text"
-            v-model="data"
+          <textarea
+            v-model="rawData"
             class="mr-4 bg-gray-200 rounded-lg w-full"
-          />
+          ></textarea>
           <button
-            @click="submit"
+            @click="parseData"
             class="py-2 px-4 bg-blue-500 text-white rounded-xl hover:cursor-pointer"
           >
             Submit
