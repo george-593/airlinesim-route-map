@@ -1,19 +1,14 @@
 <script setup>
 import { ref } from "vue";
 
+// Component imports
+import ImagePreview from "@/components/ImagePreview.vue";
+
 // Image preview imports
 import example1 from "../assets/images/example1.png";
 import example2 from "../assets/images/example2.png";
 
-// Image preview refs
-let showImage = ref(false);
-let imagePath = ref("");
-
-// Image preview onclick
-function previewImage(src) {
-  showImage.value = true;
-  imagePath.value = src;
-}
+const imagePreviewRef = ref(null);
 </script>
 
 <template>
@@ -48,14 +43,14 @@ function previewImage(src) {
             Only copy the flight data (see
             <button
               class="hover:underline hover:cursor-pointer text-blue-500"
-              @click="previewImage(example1)"
+              @click="imagePreviewRef?.previewImage(example1)"
             >
               Example 1
             </button>
             and
             <button
               class="hover:underline hover:cursor-pointer text-blue-500"
-              @click="previewImage(example2)"
+              @click="imagePreviewRef?.previewImage(example2)"
             >
               Example 2</button
             >.)
@@ -69,20 +64,5 @@ function previewImage(src) {
     </div>
   </div>
 
-  <div
-    v-if="showImage"
-    class="fixed inset-0 bg-black flex items-center justify-center"
-  >
-    <div
-      class="bg-white p-4 pb-2 rounded-xl shadow-xl max-w-[50%] w-full max-h-[80%] flex flex-col items-start overflow-auto"
-    >
-      <img :src="imagePath" alt="Preview" class="w-full h-auto rounded" />
-      <button
-        @click="showImage = false"
-        class="mt-2 text-blue-500 hover:underline hover:cursor-pointer"
-      >
-        Close
-      </button>
-    </div>
-  </div>
+  <ImagePreview ref="imagePreviewRef" />
 </template>

@@ -2,8 +2,8 @@
 import { ref } from "vue";
 
 import Header from "./components/Header.vue";
-import DataInput from "./components/DataInput.vue";
-import RouteMap from "./components/RouteMap.vue";
+import DataInput from "./views/DataInputView.vue";
+import RouteMap from "./views/RouteMapView.vue";
 
 let haveRouteData = ref(false);
 </script>
