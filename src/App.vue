@@ -17,11 +17,10 @@ function loadRouteData() {
 }
 
 loadRouteData();
-console.log(routeData.value);
 </script>
 
 <template>
   <Header />
-  <RouteMap v-if="haveRouteData" />
+  <RouteMap v-if="haveRouteData" :routeData="routeData" />
   <DataInput v-else @got-data="loadRouteData" />
 </template>
