@@ -88,16 +88,10 @@ function parseData() {
       <h2 class="font-bold text-3xl">
         We do not currently have your flight data
       </h2>
-      <h3 class="text-2xl my-2">
+      <h3 class="text-2xl mt-2">
         Please use either of the below methods to import your flight data from
         AirlineSim.
       </h3>
-      <p>
-        <strong>⚠️ Privacy Notice:</strong> Your data is never sent to a server.
-        Everything you input stays in your browser and is processed locally.
-        This site does not collect, store, or transmit any of your flight
-        information.
-      </p>
     </div>
     <div class="grid grid-cols-2">
       <div class="flex items-center flex-col w-full">
@@ -135,7 +129,7 @@ function parseData() {
               Example 2</button
             >)
           </li>
-          <li>Paste the flight data below</li>
+          <li>Paste the flight data below and press submit</li>
         </ol>
         <div class="flex my-4">
           <textarea
